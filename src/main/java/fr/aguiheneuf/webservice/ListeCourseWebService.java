@@ -1,9 +1,7 @@
 package fr.aguiheneuf.webservice;
 
 import fr.aguiheneuf.model.ListeCourse;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.MediaType;
 
@@ -11,11 +9,15 @@ import javax.ws.rs.core.MediaType;
  * Created by Alexandre on 05/12/2017.
  */
 
+@RequestMapping("/liste-course")
 public interface ListeCourseWebService {
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     Iterable<ListeCourse> getFullListeCourse();
 
     @RequestMapping(value = "/save", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON)
-    ListeCourse saveListeCourse(@RequestParam(name = "liste-course", required = true) ListeCourse liste);
+    ListeCourse saveListeCourse(@RequestParam(name = "liste-course") ListeCourse liste);
+
+    @GetMapping("/{id}")
+    ListeCourse findById(@PathVariable Long id);
 }
